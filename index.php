@@ -92,6 +92,7 @@ if (isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css">
     <title>登录</title>
     <script>
         function copyToClipboard() {
