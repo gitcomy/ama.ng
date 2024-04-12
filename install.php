@@ -36,6 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $stmt->bindValue(':password', $hashed_password, SQLITE3_TEXT);
     $stmt->execute();
 
+    // 修改 index.php 文件中的数据库文件名
+    $index_file = 'index.php';
+    $index_content = file_get_contents($index_file);
+    $index_content = preg_replace("/(\$db\s*=\s*new\s*SQLite3\(')([^']+)('\);)/", "$1$db_file$3", $index_content);
+    file_put_contents($index_file, $index_content);
+
     // 安装完成后，重命名当前文件
     $new_file_name = 'installed_' . $encrypted_name . '.php';
     rename(__FILE__, $new_file_name);
